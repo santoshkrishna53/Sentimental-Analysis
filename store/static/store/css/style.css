@@ -1,0 +1,35 @@
+.cre-button{
+	margin-left: 10px;
+	border-radius: 30px !important;
+}
+.center{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+	text-align: center;
+}
+.ht{
+	height: 100% !important;
+}
+.ju{
+	padding-top: 20%;
+	font-size: 100px !important;
+
+}
+.ju2{
+	padding-bottom: 20%;
+}
+.product{
+transition: 1s ease;
+margin-bottom: 30px !important;
+margin-top: 50px !important; 
+}
+
+.product:hover{
+-webkit-transform: scale(1.2);
+-ms-transform: scale(1.2);
+transform: scale(1.2);
+transition: 1s ease;
+}
+

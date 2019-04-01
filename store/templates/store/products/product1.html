@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Product|Page</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{% static 'store/css/product.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="../../">Products</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  	
+    <ul class="navbar-nav mr-auto"><li class="nav-item active">
+        <a class="nav-link" href="../../">Home <span class="sr-only">(current)</span></a>
+      </li>
+  </ul>
+    
+  </div>
+</nav>
+<!-- product section -->
+{% for product in products %}
+	{% if product.product_id == pro_id %}
+<section>
+	<div class="container-fluid">
+		<div class="row"><div class="col-lg-12 col-sm-12"></div></div>
+		<div class="row pro-img">
+			<div class="col-lg-6 col-sm-12"><img src="{{ product.image.url }}" class="img-responsive" style="max-width: 80% !important; max-height: 80% !important;"></div>
+			<div class="col-lg-6 col-sm-12">
+				<div class="jumbotron">
+					<h1 style="font-size: 80px;">{{ product.product }}</h1>
+					
+					<h2 style="padding-top: 5%; padding-bottom: 5%;">{{ product.product_description }}</h2>
+						
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</section>
+{% endif %}
+{% endfor %}
+<!-- reviews section -->
+<div class="container-fluid" style="padding-bottom: 35px; padding-left: 50px; padding-right: 50px;"><h1 class="center" style="width: 100% !important; border-style: ridge; border-color: grey; border-width: 5px; border-right: 0; border-left: 0;text-align: center;">Reviews</h1>
+	
+</div>
+{% for review in reviews %}
+	{% if review.product_name == pro_id %}
+<hr>
+
+<section>
+	<div class="container-fluid" style="padding-left: 50px; padding-right: 50px;">
+		<div class="row">
+			<div class="col-lg-6">
+				<h6>by {{ review.author }}</h6>
+				<h6>from chennai, india</h6>
+				{% if review.total_score == 1 %}
+					<h6 style="color: green;">Positive</h6>
+				{% elif review.total_score == -1 %}
+					<h6 style="color: red">Negative</h6>
+				{% else %}
+					<h6 style="color: blue;">Neutral</h6>
+				{% endif %}
+
+			</div>
+			<div class="col-lg-6">
+				<h6 style="text-align: right;">{{ review.date_posted }}</h6>
+				
+			</div>
+		</div>
+		<div>{{ review.review }}</div>
+	</div>
+</section>
+	
+<hr>
+{% endif %}
+{% endfor %}
+<hr>
+<hr>
+{% if user.is_authenticated %}
+<h1 class="center" style="width: 100% !important; border-style: ridge; border-color: grey; border-width: 5px; border-right: 0; border-left: 0;text-align: center;">Give Review</h1>
+<br>
+<form method="POST" style="padding-bottom: 30px;">{% csrf_token %}
+	
+
+	<textarea type='text' name="review" placeholder="type the review here" style="width: 40%; height: 40%;margin-right: 30%;margin-left: 30%;"></textarea><br>
+	<input type="submit"  class="btn btn-danger"value='review' style="margin-right: 40%; margin-left: 40%; width: 20%;border-radius: 50px;">
+	
+</form>
+{% else %}
+<h1 style="color: red;text-align: center;margin-left: 35%;margin-right: 35%;">Please login to give a review</h1>
+{% endif %}
+
+</body>
+</html>
